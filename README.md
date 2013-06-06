@@ -7,4 +7,4 @@ For those of you who came to the talk tonight, the slides are posted here. The e
 
 Check back here for postings to articles on the topic.
 
-- Nathan
+Nathan

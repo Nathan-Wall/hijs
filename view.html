@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>High Integrity JavaScript</title>
+
+    <meta charset='utf-8'>
+    <script src='slides.js'></script>
+	  
+	  <style type="text/css">
+
+	    /* Your individual styles here, or just use inline styles if that’s
+	       what you want. */
+	    table.no-border td {
+	    	border: 0;
+	    }
+
+	    .exploit {
+	    	color: #f80;
+	    	font-weight: bold;
+	    }
+
+	    .slides.template-default > article:not(.nobackground):not(.biglogo) {
+	    	background: #fff url("appnexus-logo.png") 760px 645px no-repeat !important;
+	    }
+
+	    pre {
+	    	tab-size: 4;
+	    	-moz-tab-size: 4;
+	    }
+
+	    h1 b, h2 b, h3 b, h4 b, h5 b, h6 b {
+	    	text-decoration: underline
+	    }
+
+	    .prettyprint .black .str,
+	    .prettyprint .black .typ,
+	    .prettyprint .black .pun,
+	    .prettyprint .black .pln,
+	    .prettyprint .black .kwd,
+	    .prettyprint .black .com {
+	    	color: black;
+	    }
+
+	    .prettyprint .red .str,
+	    .prettyprint .red .typ,
+	    .prettyprint .red .pun,
+	    .prettyprint .red .pln,
+	    .prettyprint .red .kwd,
+	    .prettyprint .red .com {
+	    	color: red;
+	    }
+
+	    .prettyprint .blue .str,
+	    .prettyprint .blue .typ,
+	    .prettyprint .blue .pun,
+	    .prettyprint .blue .pln,
+	    .prettyprint .blue .kwd,
+	    .prettyprint .blue .com {
+	    	color: blue;
+	    }
+
+	    .prettyprint .green .str,
+	    .prettyprint .green .typ,
+	    .prettyprint .green .pun,
+	    .prettyprint .green .pln,
+	    .prettyprint .green .kwd,
+	    .prettyprint .green .com {
+	    	color: green;
+	    }
+
+	    .standout,
+	    .prettyprint .standout {
+	    	font-weight: bold;
+	    	color: orange;
+	    }
+
+	    .object-block {
+	    	display: inline-block;
+	    	width: 140px;
+	    	padding: 50px 0;
+	    	background: #3bf;
+	    	text-align: center;
+	    	font-weight: bold;
+	    	color: #000;
+	    	border-radius: 16px;
+	    }
+
+	    .object-block.priv {
+	    	background: #fff;
+	    	width: 120px;
+	    	padding: 50px 0 30px;
+	    	border: 10px dotted #3d3;
+	    	font-style: italic;
+	    	color: #444;
+	    	vertical-align: middle;
+	    }
+
+	    .object-block.priv::before {
+	    	position: absolute;
+	    	margin-top: -27px;
+	    	width: 120px;
+	    	text-align: center;
+	    	display: block;
+	    	content: 'Secret';
+	    	font-size: 70%;
+	    }
+
+	    .object-block.priv.priv-2 {
+	    	border-color: #d33;
+	    }
+
+	    .object-block.origin {
+	    	vertical-align: top;
+	    	padding: 43px 0;
+	    	font-size: 70%;
+	    	line-height: 1.2em;
+	    }
+
+	    .arrow {
+	    	display: inline-block;
+	    	padding: 0 8px;
+	    	font-size: 160%;
+	    	color: #000;
+	    }
+
+	    .arrow.down {
+	    	padding: 14px 0 18px 45px;
+	    }
+
+	    .arrow.priv::before {
+			position: absolute;
+			margin: -24px 0 0 4px;
+			color: #888;
+			font-size: 50%;
+			content: '\00a0\00a0S';
+	    }
+
+	    .arrow.priv.down::before {
+	    	margin: 4px 0 0 30px;
+	    }
+
+	    .arrow.priv.priv-2::before {
+			content: 'T';
+	    }
+
+	    .priv-func {
+	    	color: #391;
+	    }
+	    
+	    dd {
+	    	margin-bottom: 32px;
+	    }
+
+	    pre .hilite {
+	    	background: #fff;
+	    	border: 1px solid #ffff00;
+	    	margin: -1px;
+	    }
+
+	    .x-bigger {
+	    	font-size: 140%;
+	    }
+
+	    .x-bigger h3 {
+	    	margin: 50px 0;
+	    	font-size: 100%;
+	    }
+
+	    .fix-line-spacing {
+	    	line-height: 1.24em;
+	    }
+
+	    .no-bullets {
+	    	padding-left: 0;
+	    	margin-left: 0;
+	    }
+
+	    .no-bullets li::before {
+	    	display: none;
+	    }
+
+	    .slides.template-default >  article.title-slide:not(.nobackground):not(.biglogo) {
+	    	background: #035 !important;
+	    	color: #fff;
+	    }
+
+	    .title-slide h3 {
+	    	color: #fff;
+	    }
+
+	    .slides.template-default >  article.title-slide-2:not(.nobackground):not(.biglogo) {
+	    	background: #37a !important;
+	    	color: #fff;
+	    }
+
+		.title-slide-2 h3 {
+	    	color: #fff;
+	    }
+
+	    .code-author-pic {
+	    	float: right;
+	    	height: 50px;
+	    	opacity: .7;
+	    }
+
+	  </style>
+
+  </head>
+
+  <body style='display: none'>
+
+     <style media="print">
+         @page {
+            size: A4 landscape;
+             @top-right {
+                content: "Page " counter(page);
+             }
+         }
+          article {
+            page-break-after: always;
+            margin: auto;
+          }
+          article.next, article.past {
+            display: block;    
+          }
+          body {
+              display: block !important;
+              font-family: 'Open Sans', Arial, sans-serif;
+              font-size: 1.5em;
+          }
+          i {
+          	color: #000;
+          }
+      </style>
+      <script type="text/javascript">
+        window.addEventListener('load', function(){
+            var link = document.getElementsByTagName('link');
+            link[link.length-1].setAttribute("media","screen");
+        });
+       </script>
+
+    <section class='slides layout-regular template-default'>
+      
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
+        
+        <article>
+        	<h1>High Integrity JavaScript (HIJS)</h1>
+        	<p style="font-size: 140%;">How to use and write 3rd party code so that it always works.</p>
+        	<p style="font-size: 140%; text-align: right;">Nathan Wall</p>
+        </article>
+
+        <article>
+        	<h3>A Few Facts About Me</h3>
+        	<ul class="build">
+        		<li>I'm part Creek (Native American).</li>
+        		<li>I made an unassisted triple play in baseball when<br />I was 8.</li>
+        		<li>
+        			That same year I started programming in this language:
+        			<img alt="" src="qbasic.png" style="width: 400px; margin: 50px 0 0 150px;" />
+        		</li>
+        	</ul>
+        </article>
+
+        <!--article class="title-slide-2">
+        	<h3>Introduction</h3>
+        	<ul>
+        		<li>Approaches to coping with JavaScript's extensibility</li>
+        		<li>When you should care about high integrity</li>
+        	</ul>
+        	<h3 style="margin-top: 70px;">Then...</h3>
+        	<ul>
+        		<li>Achieving High Integrity</li>
+        	</ul>
+        </article-->
+
+        <article>
+        	<h3>JavaScript is highly malleable</h3>
+<section class="build"><pre style="margin-top: 48px; margin-bottom: 0;">
+function setDate(dateStr) {
+	var timestamp = Date.parse(date);
+    if (isNaN(timestamp)) {
+        // some code
+    } else {
+        // other code
+    }
+}
+</pre></section>
+<table class="no-border" style="margin-top: 0; margin-bottom: 0;"><tr class="build"><td>
+<h4 style="margin-top: 0; margin-bottom: 0; padding-top: 20px;">Built-In</h4>
+<section><pre style="margin-top: 8px; margin-bottom: 0;">
+> Date.parse(null);
+NaN
+> Date.parse('');
+NaN
+> Date.parse(2005);
+1104537600000
+</pre></section>
+</td><td>
+<h4 style="margin-top: 0; margin-bottom: 0; padding-top: 20px;">DateJS</h4>
+<section><pre style="margin-top: 8px; margin-bottom: 0;">
+> Date.parse(null);
+null
+> Date.parse('');
+null
+> Date.parse(2005);
+null
+</pre></section>
+</td></tr></table>
+        </article>
+
+        <article>
+        	<h3>3 approaches:</h3>
+        	<ol class="build">
+        		<li><b>Don't worry about it.</b> Assume a safe environment.</li>
+        		<li><b>Lock the environment.</b> Prevent things from being done that you don't like (SES).</li>
+        		<li><b>Write code that always works.</b> &larr; <i>High Integrity</i></li>
+        	</ol>
+        </article>
+
+        <article>
+        	<h3>When should you care about high integrity?</h3>
+        	<ul class="build">
+        		<li>
+        			<div><b>Using 3rd party code</b></div>
+       				<ul>
+						<li>Libraries and plugins</li>
+        				<li>Analytics<!-- problem: hacked --></li>
+        				<li>Browser extensions<!-- problem: always possible --></li>
+        			</ul>
+        		</li>
+        			<!-- We shouldn't limit our potential to use arbitrary 3rd party code. -->
+        		<li>
+         			<div><b>Writing 3rd party code</b></div>
+        		</li>
+        		<li>
+        			<div><b>Applications requiring security</b></div>
+        			<ul>
+        				<li>Banks</li>
+        				<li>Social Networks</li>
+        				<li>Email Clients</li>
+        			</ul>
+        		</li>
+        	</ul>
+        </article>
+
+        <!--article>
+        	<div class="x-bigger fix-line-spacing">
+    	    	<h3>Is HIJS really possible?</h3>
+        		<ul class="build no-bullets">
+		        	<li>It's possible but not always easy.</li>
+		        	<li>Not all HIJS techniques are for every project.</li>
+		        	<li>Integrity concerns should be balanced with the needs of a project.</li>
+	        	</ul>
+        	</div>
+        </article-->
+
+        <!--article>
+        	<div style="margin-top: 150px;">
+        		<h3 style="font-size: 150%;">HIJS Axiom</h3>
+        		<p style="font-style: italic; font-size: 160%; line-height: 1.24em;">Code executed first has a higher integrity priority.</p>
+        	</div>
+        </article-->
+
+        <article>
+        	<div style="margin-top: 90px;">
+        		<h3 style="font-size: 150%;">HIJS Goals</h3>
+        		<ul style="font-size: 120%; line-height: 1.4em;">
+        			<li>Design scripts that run predictably, reliably, and securely given a consistent initialization environment.</li>
+        			<li>Leave the environment in a state that functions observably identically to the way it did when we got access to it.<!-- no freezing --></li>
+        		</ul>
+        	</div>
+        </article>
+
+        <article class="title-slide">
+    		<div style="margin: 150px 0 0 50px;">
+	        	<h3 style="font-size: 130%;">Achieving High-Integrity</h3>
+	        	<ul style="font-size: 130%;">
+	        		<li>Getting up to Speed on ECMAScript 5</li>
+	        		<li>Writing General Purpose Code</li>
+	        		<li>Private Variables</li>
+	        		<li>Guarding Internal State</li>
+	        			<!-- Once we have privates, we need to know how to keep them from escaping. -->
+	        	</ul>
+	        </div>
+        </article>
+
+        <article class="title-slide-2">
+        	<div style="margin: 200px 0 0 80px; font-size: 120%; line-height: 1.24em;">
+	        	<h3 style="font-size: 140%;">ECMAScript 5</h3>
+	        	<h4>Provides a more hardened, securable language.</h4>
+	        </div>
+        </article>
+
+        <!--article>
+        	<h3>Strict Mode</h3>
+        	<p>Strict mode fixes many leaks in the language.</p>
+<section><pre>
+(function() {
+	'use strict';
+	// ...
+})();
+</pre></section>
+
+			<ul>
+				<li>No accidental globals</li>
+				<li>No accidental globals</li>
+			</ul>
+
+        </article-->
+
+        <article>
+        	<h3>create</h3>
+        	<dl>
+        		<dt><code>Object.create(<i>proto</i>)</code></dt>
+        			<dd>Creates an object with <i>proto</i> as its prototype.</dd>
+        	</dl>
+<div style="position: relative;">
+<div style="position: absolute; width: 100%;">
+<section><pre>
+var A = { },
+	B = Object.create(A);
+</pre></section>
+				<p style="text-align: center;">
+      				<span class="object-block">B</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block">A</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block origin">Object.<br />prototype</span>
+      				<span class="arrow">&rarr;</span>
+      				null
+      			</p>
+</div>
+<div class="build" style="width: 100%;"><div style="background: #fff; position: absolute; z-index: 1; width: 100%;">
+<section><pre>
+var A = Object.create(null),
+	B = Object.create(A);
+</pre></section>
+				<p style="text-align: center;">
+      				<span class="object-block">B</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block">A</span>
+      				<span class="arrow">&rarr;</span>
+      				null
+      			</p>
+</div></div>
+</div>
+      	</article>
+
+      	<article>
+      		<h3>defineProperty</h3>
+      		<dl>
+        		<dt><code>Object.defineProperty(<i>obj</i>, <i>propName</i>, <i>desc</i>)</code></dt>
+        			<dd>Can be used to define getters and setters on an object.</dd>
+        	</dl>
+<section><pre>
+var A = { }, foo;
+Object.defineProperty(A, 'foo', {
+    get: function() {
+        return foo + '_extra';
+    },
+    set: function(value) {
+        foo = value;
+    }
+});
+
+A.foo = 'bar';
+A.foo; // => 'bar_extra'
+</pre></section>
+        </article>
+
+        <article>
+        	<h3>freeze</h3>
+      		<dl>
+        		<dt><code>Object.freeze(<i>obj</i>)</code></dt>
+        			<dd>Locks an object's properties so that they can't be changed.</dd>
+        	</dl>
+<section><pre>
+var A = { x: 1 };
+Object.freeze(A);
+A.x = 5;
+A.x; // => 1
+A.y = 2;
+A.y; // => undefined
+</pre></section>
+        </article>
+
+        <article>
+        	<h3>bind</h3>
+<section><pre>
+var _forEach = Array.prototype.forEach;
+
+var foo = [ 'a', 'b', 'c', 'd', 'e' ],<div class="hilite">	forEachFoo = _forEach.bind(foo);</div>
+
+forEachFoo(function(item) {
+	console.log(item);
+});
+
+// same as:
+foo.forEach(function(item) {
+	console.log(item);
+});
+</pre></section>
+        </article>
+
+        <article class="title-slide-2">
+        	<div style="margin: 130px 0 0 100px; font-size: 120%; line-height: 1.24em;">
+	        	<h3 style="font-size: 140%;">General Purpose Code</h3>
+	        	<ul>
+	        		<li>Store built-ins for later usage</li>
+	        		<li>Evade naming collisions</li>
+	        		<li>Support generic objects</li>
+	        		<li>Be aware of the prototype chain</li>
+	        	</ul>
+	        </div>
+        </article>
+
+        <article>
+        	<h3>Store Built-Ins</h3>
+        	<p>Built-in functions can be overridden, so store the existing ones
+        	when your script initializes.</p>
+<section><pre>
+(function(Object, String, Date) {
+    
+    'use strict';
+    
+    // Store built-in functions for later usage.
+    var parse = Date.parse,
+        keys = Object.keys,
+        getOwnPropertyNames = Object.getOwnPropertyNames;
+    
+    // ...
+    
+})(Object, String, Date);
+</pre></section>
+        </article>
+
+        <article>
+        	<h3>Naming Collisions</h3>
+							<div style="position: absolute; width: 780px;">
+<section><pre style="margin-bottom: 0;">
+function eachKey(obj, callback) {
+    var key, value, isOwn;
+    for (key in obj) {
+        value = obj[key];
+        isOwn = obj.hasOwnProperty(key);
+        callback(key, value, isOwn);
+    }
+}
+</pre></section>
+        	<p style="font-size: 80%; margin-bottom: 8px;">Calls a callback function for each property
+        	in an object, passing in the property name, value, and whether it is
+        	an <i>own</i> property.</p>
+
+<section><pre style="margin: 0;">
+eachKey({
+  "toString": "Converts an object to a string representation.",
+  "valueOf": "Converts an object to a value representation.",
+  "hasOwnProperty": "Determines if an object has an own property.",
+  "isPrototypeOf": "Determines if an object is another's protototype."
+}, display);
+</pre></section>
+						</div>
+						<div class="build">
+							<div style="background: #fff; position: relative;">
+<section><pre style="margin-bottom: 0;">
+function eachKey(obj, callback) {
+    var key, value, isOwn;
+    for (key in obj) {
+        value = obj[key];
+        isOwn = obj.<b class="red">hasOwnProperty</b>(key);
+        callback(key, value, isOwn);
+    }
+}
+</pre></section>
+        	<p style="font-size: 80%; margin-bottom: 8px;">Calls a callback function for each property
+        	in an object, passing in the property name, value, and whether it is
+        	an <i>own</i> property.</p>
+<section><pre style="margin: 0;">
+eachKey({
+  "toString": "Converts an object to a string representation.",
+  "valueOf": "Converts an object to a value representation.",
+  <b class="red">"hasOwnProperty"</b>: "Determines if an object has an own property.",
+  "isPrototypeOf": "Determines if an object is another's protototype."
+}, display);
+</pre></section>
+						</div>
+						</div>
+        </article>
+
+        <article>
+        	<div>
+        		<h3>Solution to Naming Collisions: Write Functionally</h3>
+        		<p>Don't depend on <code>Object.prototype</code>.</p>
+        	</div>
+        	<div class="build">
+        		<div>
+
+<section><pre>
+function eachKey(obj, callback) {
+    var key, value, isOwn;
+    for (key in obj) {
+        value = obj[key];
+        isOwn = <b>hasOwn</b>(obj, key);
+        callback(key, obj[key], isOwn);
+    }
+}
+</pre></section>
+
+<section><pre>
+var _hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+	return _hasOwnProperty.call(obj, key);
+}
+</pre>
+</section>
+
+				</div>
+			</div>
+        </article>
+
+        <article>
+        	<h3>Supporting Generic Objects</h3>
+<section><pre style="margin: 20px 0;">
+function pluck(array, propertyName) {
+    return array.map(function(u) {
+        return u[propertyName];
+    });
+}
+</pre></section>
+<div class="build">
+<div>
+<div style="color: #000; font-size: 20px; border: 1px solid #aaa; padding: 4px 8px; display: inline-block;">
+	<b>Name</b><br />
+	<span style="display: inline-block; width: 100px;">First:</span> <input style="font-size: 20px;" type="text" value="William" /><br />
+	<span style="display: inline-block; width: 100px;">Middle:</span> <input style="font-size: 20px;" type="text" value="Howard" /><br />
+	<span style="display: inline-block; width: 100px;">Last:</span> <input style="font-size: 20px;" type="text" value="Taft" /><br />
+</div>
+<section><pre style="margin-top: 20px;">
+var values = pluck([
+	document.getElementById('first_name'),
+	document.getElementById('middle_name'),
+	document.getElementById('last_name'),
+], 'value');
+
+values; // => [ "William", "Howard", "Taft" ]
+</pre></section>
+</div>
+</div>
+		</article>
+
+		<article>
+			<h3>Supporting Generic Objects</h3>
+<section><pre style="margin: 20px 0;">
+function pluck(array, propertyName) {
+    return array.map(function(u) {
+        return u[propertyName];
+    });
+}
+</pre></section>
+<section><pre>
+var values = pluck(document.getElementsByTagName('input'), 'value');
+<span class="build"><span>// => <span class="red">TypeError: Object #&lt;NodeList&gt; has no method 'map'</span></span></span>
+</pre></section>
+        </article>
+
+		<article>
+			<h3>Solution to Supporting Generic Objects:<br />Write Functionally</h3>
+			<p>Don't depend on prototype methods.</p>
+<section><pre>
+function pluck(array, propertyName) {
+    return <b>map</b>(array, function(u) {
+        return u[propertyName];
+    });
+}
+</pre></section>
+<section><pre>
+var _map = Array.prototype.map;
+function map(arrayLike, callback) {
+	return _map.call(arrayLike, callback);
+}
+</pre></section>
+		</article>
+
+        <article>
+        	<h3>Abstracting the process of turning a method into a function</h3>
+<h4 style="margin-bottom: 12px;">Good</h4>
+<section><pre style="margin-top: 0;">
+var _hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+	return <i class="green">_hasOwnProperty</i>.<i class="blue">call</i>(obj, key);
+}
+</pre>
+</section>
+
+<div class="build">
+<div>
+<h4 style="margin-bottom: 12px;">Better</h4>
+<section><pre style="margin-top: 0;">
+var _hasOwnProperty = Object.prototype.hasOwnProperty,
+	_call = Function.prototype.call,
+	hasOwn = <i class="blue">_call</i>.bind(<i class="green">_hasOwnProperty</i>);
+</pre></section>
+</div>
+<section><pre>
+var slice = <i class="blue">_call</i>.bind(<i class="green">Array.prototype.slice</i>),
+	map = <i class="blue">_call</i>.bind(<i class="green">Array.prototype.map</i>),
+	isPrototypeOf = <i class="blue">_call</i>.bind(<i class="green">Object.prototype.isPrototypeOf</i>);
+</pre></section>
+</div>
+
+        </article>
+
+       	<article>
+       		<h3>Lazy Bind &nbsp;<span style="font-size: 70%; color: #555;">(uncurryThis)</span></h3>
+
+      		<p>Converts a <i class="blue">method</i> into a <i class="green">function</i> with <code style="font-weight: bold;">this</code> as its first argument.</p>
+
+<section><pre style="margin-top: 20px; margin-bottom: 0;">
+var slice = <i class="blue">lazyBind</i>(<i class="green">Array.prototype.slice</i>),
+	map = <i class="blue">lazyBind</i>(<i class="green">Array.prototype.map</i>),
+	isPrototypeOf = <i class="blue">lazyBind</i>(<i class="green">Object.prototype.isPrototypeOf</i>);
+</pre></section>
+
+<section><pre style="margin-top: 20px; margin-bottom: 10px;">
+function lazyBind(f) {
+	return <i class="green">_call</i>.<i class="blue">bind</i>(f);
+}
+</pre>
+</section>
+
+<div class="build">
+
+<div>
+<h4 style="margin-top: 10px; margin-bottom: 12px;">Better</h4>
+<section><pre style="margin-top: 10px; margin-bottom: 10px;">
+var _call = Function.prototype.call,
+	_bind = Function.prototype.bind,
+	lazyBind = <i class="blue">_bind</i>.bind(<i class="green">_call</i>);
+</pre>
+</section>
+</div>
+
+<section><pre style="margin-top: 10px; margin-bottom: 10px;">
+var lazyBind = <i class="blue">Function.prototype.bind</i>.bind(<i class="green">Function.prototype.call</i>);
+</pre></section>
+
+</div>
+
+		</article>
+
+		<!--article>
+
+       		<h3>Lazy Bind &nbsp;<span style="font-size: 70%; color: #555;">(uncurryThis)</span></h3>
+
+			<p>Other Ideas</p>
+
+<section><pre>
+var toUpperCase = <i class="blue">lazyBind</i>(String.prototype.toUpperCase);
+[ 'a', 'b', 'c' ].map(toUpperCase);
+// => [ 'A', 'B', 'C' ]
+</pre></section>
+
+<section><pre>
+var trim = <i class="blue">lazyBind</i>(String.prototype.trim);
+var trimmedLines = linesOfText.split('\n').map(trim);
+</pre></section>
+
+       	</article-->
+
+       	<article>
+       		<h3>Be Aware of the Prototype Chain</h3>
+       		<p>Do you really want that to inherit from <code style="color: rgb(102, 102, 102);">Object.prototype</code>?</p>
+<section><pre>
+var A = { }, foo;
+Object.defineProperty(A, 'foo', {
+    get: function() {
+        return foo;
+    },
+    set: function(value) {
+        foo = value;
+    }
+});
+</pre></section>
+       	</article>
+
+		<article>
+       		<h3>Be Aware of the Prototype Chain</h3>
+       		<p>Do you really want that to inherit from <code style="color: rgb(102, 102, 102);">Object.prototype</code>?</p>
+<section><pre>
+Object.prototype.value = 'gotcha!';
+</pre></section>
+<section><pre>
+var A = { }, foo;
+Object.defineProperty(A, 'foo', {
+    get: function() {
+        return foo;
+    },
+    set: function(value) {
+        foo = value;
+    }
+//  value: 'gotcha!' (inherited)
+});
+=> <span class="red">TypeError: A property cannot have both accessors and a value.</span>
+</pre></section>
+</div>
+       	</article>
+
+       	<article>
+       		<h3>Be Aware of the Prototype Chain</h3>
+       		<h4>Solution: Use an object which inherits from <code style="font-weight: bold;">null</code>.</h4>
+<section><pre>
+var create = Object.create;
+    defineProperty = Object.defineProperty,
+    keys = Object.keys,
+    forEach = lazyBind(Array.prototype.forEach);
+
+function define(obj, propName, desc) {
+    var D = create(null);
+    forEach(keys(desc), function(key) {
+        D[key] = desc[key];
+    });
+    defineProperty(obj, propName, D);
+}
+</pre></section>
+       	</article>
+
+        <article class="title-slide-2">
+        	<div style="margin: 190px 0 0 35px; font-size: 120%; line-height: 1.24em;">
+	        	<h3 style="font-size: 140%;">Private Variables</h3>
+	        	<ul class="build">
+	        		<li>Separate interface from implementation.</li>
+	        		<li>Only permit what is legitimately necessary.</li>
+	        		<!--li>Manage complexity</li-->
+	        		<!--li>Coupling (ensures code doesn't rely on things that may change; gives you more flexibility to change private methods without fear)</li-->
+	        	</ul>
+	        </div>
+        </article>
+
+        <article>
+        	<h3>The Underscore Pattern</h3>
+<section><pre>
+function Foo() {
+	this._bar = Math.random();
+}
+Foo.prototype.getBar = function() {
+	return this._bar;	
+};
+</pre></section>
+
+		<div class="build">
+			<div>
+	        	<h4 style="margin-bottom: 8px; color: #000;">Problems:</h4>
+	        	<ul style="margin-top: 0;">
+	        		<!-- li>?</li -->
+	        		<li>Name collisions</li>
+	        		<li>No true encapsulation</li>
+	        	</ul>
+	        </div>
+	    </div>
+
+        </article>
+
+        <article>
+        	<h3>The Module Pattern</h3>
+<section><pre>
+function Foo() {
+	var bar = Math.random();
+    this.getBar = function() {
+        return bar;
+    };
+}
+</pre></section>
+
+			<div class="build">
+				<div>
+		        	<h4 style="margin-bottom: 8px; color: #000;">Problems:</h4>
+		        	<ul style="margin-top: 0;">
+		        		<li>Not compatible with prototypal inheritance</li>
+		        		<li>No class-private variables</li>
+		        	</ul>
+		        </div>
+		    </div>
+
+        </article>
+
+        <article>
+        	<h3>The <code>BankAccount</code> Example</h3>
+<section><pre>
+var jane = new BankAccount(1000);
+var mike = new BankAccount(400);
+
+mike.deposit(jane, 200);
+
+jane.getBalance(); // => 800
+mike.getBalance(); // => 600
+</pre></section>
+        </article>
+
+        <article>
+        	<h3>The Underscore Pattern</h3>
+<section><pre>
+function BankAccount(balance) {
+	this._balance = balance;
+}
+BankAccount.prototype.getBalance = function() {
+	return this._balance;	
+};
+BankAccount.prototype.deposit = function(<span class="black">from</span>, amount) {
+	this._balance += amount;	
+	<span class="black">from</span>._balance -= amount;
+};
+</pre></section>
+<div class="build">
+	<h4 style="text-align: center;">No True Encapsulation</h4>
+</div>
+        </article>
+
+      		<article>
+
+      			<h3>The Module Pattern</h3>
+<section><pre>
+function BankAccount(balance) {
+    this.getBalance = function() {
+        return balance;
+    };
+    this.deposit = function(<span class="black">from</span>, amount) {
+        // Add to this balance.
+        balance += amount;
+        // Can't access from.balance!
+    };
+}
+</pre></section>
+				<div class="build">
+					<h4 style="text-align: center;">Privates guarded by instance closures<br />cannot be accessed across instances.</h4>
+				</div>
+
+      		</article>
+
+      		<article>
+      			<h3>How can privileged changes across instances be made securely?</h3>
+      			<div class="build">
+      				<h3 style="margin-top: 32px;">What you really want are <em>class-private</em> variables.</h3>
+      				<table class="no-border" style="text-align: center"><tr>
+      					<td>
+      						<h4>Instance-Private</h4>
+      						<img alt="" src="instance-private.png" />
+      					</td>
+      					<td class="build">
+      						<div>
+      							<h4>Class-Private</h4>
+      							<img alt="" src="class-private.png" />
+      						</div>
+      					</td>
+      				</tr></table>
+      			</div>
+      		</article>
+
+      		<!--article>
+      			<h3>Secrets</h3>
+      			<p style="margin-bottom: 40px;"><a href="http://github.com/Nathan-Wall/Secrets">github.com/Nathan-Wall/Secrets</a></p>
+      			<div class="build">
+      				<div><img alt="" src="secrets-console-01.png" /></div>
+      				<div><img alt="" src="secrets-console-02.png" /></div>
+      				<div><img alt="" src="secrets-console-03.png" /></div>
+      				<div><img alt="" src="secrets-console-04.png" /></div>
+      			</div>
+      		</article-->
+
+      		<article>
+      			<h3 style="margin-bottom: 6px;">Secrets</h3>
+      			<p style="margin-top: 0; margin-bottom: 40px;"><a href="http://github.com/Nathan-Wall/Secrets">github.com/Nathan-Wall/Secrets</a></p>
+
+      			<h4 style="font-size: 90%; color: #000;">A <b>secret</b> is an object which is paired to a target object and used to store
+      				private information about the target.</h4>
+<section><pre>
+var S = Secrets.create();
+var obj = { };
+S(obj).foo = 5;
+</pre></section>
+				<p style="text-align: center;"><span class="object-block">obj</span>
+      				<span class="arrow priv">&rArr;</span>
+      				<span class="object-block priv">obj</span>
+      			</p>
+      		</article>
+      		<article>
+      			<h3>An object can have multiple secrets.</h3>
+<section><pre>
+var S = Secrets.create();
+var obj = { };
+S(obj).foo = 5;
+var T = Secrets.create();
+T(obj).bar = 7;
+</pre></section>
+      			<div style="text-align: center">
+      				<div style="display: inline-block; text-align: left;">
+      					<span class="object-block">obj</span>
+	      				<span class="arrow priv">&rArr;</span>
+	      				<span class="object-block priv" style="position: relative;">obj<div style="font-size: 55%; font-style: normal; position: absolute; font-family: monospace; width: 100%;">foo: 5</div></span><br />
+	      				<span class="arrow priv down priv-2">&dArr;</span><br />
+	      				<span class="object-block priv priv-2" style="position: relative;">obj<div style="font-size: 55%; font-style: normal; position: absolute; font-family: monospace; width: 100%;">bar: 7</div></span>
+	      			</div>
+      			</div>
+      		</article>
+
+      		<article>
+      			<p>Secrets have parallel prototype chains.</p>
+<section><pre>
+var a = Object.create(null),
+	b = Object.create(a),
+	c = Object.create(b);
+S(a).foo = 8;
+S(c).foo; // => 8
+</pre></section>
+				<p style="text-align: center;"><span class="object-block">c</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block">b</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block">a</span>
+      				<span class="arrow">&rarr;</span>
+      				null
+      			</p>
+				<p style="text-align: center;"><span class="object-block priv" style="position: relative;">c</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block priv">b</span>
+      				<span class="arrow">&rarr;</span>
+      				<span class="object-block priv" style="position: relative;">a<span style="font-size: 55%; font-style: normal; position: absolute; font-family: monospace; width: 100%; display: block;">foo: 8</span></span>
+      				<span class="arrow">&rarr;</span>
+      				null
+      			</p>
+      		</article>
+
+      		<article>
+
+      			<h3>Secrets</h3>
+
+<section><pre style="line-height: 1.7em;">
+var BankAccount = (function() {
+    var <span class="priv-func">S</span> = Secrets.create();
+    function BankAccount(balance) {
+        <span class="priv-func">S</span>(this).balance = balance;
+    }
+    BankAccount.prototype.getBalance = function() {
+        return <span class="priv-func">S</span>(this).balance;
+    };
+    BankAccount.prototype.deposit =
+        function(<span class="black">from</span>, amount) {
+            <span class="priv-func">S</span>(this).balance += amount;
+            <span class="priv-func">S</span>(<span class="black">from</span>).balance -= amount;
+        };
+    return BankAccount;
+})();
+</pre></section>
+      		</article>
+
+      		<article>
+      			<h3>Protected Variables</h3>
+<section><pre>
+var Nameable, Renameable;
+(function() {
+    var <span class="priv-func">S</span> = Secrets.create();
+
+    Nameable = function(name) {
+        <span class="priv-func">S</span>(this).name = name;
+    };
+    Nameable.prototype.getName = function() {
+        return <span class="priv-func">S</span>(this).name;
+    };
+
+    Renameable = function(name) {
+        Nameable.call(this, name);
+    };
+    Renameable.prototype = Object.create(Nameable.prototype);
+    Renameable.prototype.setName = function(name) {
+        <span class="priv-func">S</span>(this).name = name;
+    };
+})();
+</pre></section>
+      		</article>
+
+      		<article>
+      			<h3>Under the Hood: Secrets in ES5</h3>
+      			<p><img alt="" src="how-secrets-work.png" style="height: 300px;" /></p>
+      			<div style="font-size: 85%;">
+	      			<h4 style="margin-top: 0; margin-bottom: 0;">Steps <i>S</i> takes:</h4>
+	      			<ol style="margin-top: 16px;">
+	      				<li>Unlocks the lock.</li>
+	      				<li>Requests Secret Map from <code>A[SECRET_KEY]</code>.</li>
+	      				<li>Locks the lock.</li>
+	      				<li>Returns <code>SecretMap[S_key]</code>.</li>
+	      			</ol>
+	      		</div>
+      		</article>
+
+			<article>
+				<h3>Possibilities for ECMAScript 6</h3>
+				<h4 style="margin-bottom: 0;">WeakMaps</h4>
+<section><pre>
+let Nameable = (function() {
+	let _name = new WeakMap();
+	let Nameable = function(name) {
+        _name.set(this, name);
+	};
+	Nameable.prototype.getName = function() {
+        return _name.get(this);
+	};
+	return Nameable;
+})();
+</pre></section>
+      		</article>
+
+			<article>
+				<h3>Possibilities for ECMAScript 6</h3>
+				<h4>Private Symbols? (unlikely)</h4>
+<section><pre>
+let Nameable = (function() {
+	let _name = new Symbol(true);
+	let Nameable = function(name) {
+        this[_name] = name;
+	};
+	Nameable.prototype.getName = function() {
+        return this[_name];
+	};
+	return Nameable;
+})();
+</pre></section>
+      		</article>
+
+			<article>
+				<h3>Possibilities for ECMAScript 6</h3>
+				<h4 style="margin-bottom: 0;">Object.getPrivate?</h4>
+<section><pre>
+let Nameable = (function() {
+	let _name = new Symbol();
+	let Nameable = function(name) {
+        Object.setPrivate(this, _name, name);
+	};
+	Nameable.prototype.getName = function() {
+        return Object.getPrivate(this, _name);
+	};
+	return Nameable;
+})();
+</pre></section>
+      		</article>
+
+      		<article>
+      			<h3>Possibilities for ECMAScript 6</h3>
+      			<h4>Private in Class Syntax?</h4>
+<section><pre>
+class Nameable {
+	constructor(private name) { }
+	getName() { return this@name; }
+}
+</pre></section>
+			</article>
+
+      		<article class="title-slide-2">
+      			<div style="margin: 190px 0 0 35px; font-size: 120%; line-height: 1.24em;">
+      				<h3 style="margin-top: 200px; font-size: 140%;">Guarding Internal State</h3>
+      				<p>It turns out to be more difficult to keep privates private than you might think!</p>
+      			</div>
+      		</article>
+
+      		<article>
+      			<h3 style="margin-bottom: 4px;">Guarding Internal State</h3>
+      			<h4 style="margin-top: 4px;">Making a Logged List</h4>
+      			<div>
+      				<img alt="" src="alice-and-bob.png" />
+      			</div>
+      			<div style="margin-top: 20px;">
+      				<img alt="" src="logged-list.png" style="width: 640px;" />
+      			</div>
+      		</article>
+
+      		<article>
+<section>
+<pre style="margin-top: 8px;">
+<img alt="" src="alice.png" class="code-author-pic" />function LoggedList() {
+  var array = [ ];
+  this.add = function(value) {
+    console.log('add', value);
+    array.push(value);
+  };
+  this.get = function(index) {
+    return array[index];
+  };
+  this.set = function(index, value) {
+    console.log('set', index, value);
+    array[index] = value;
+  };
+  Object.freeze(this);
+}
+
+var list = new LoggedList();
+sendToBob(list);
+</pre>
+</section>
+			</article>
+
+			<article>
+				<h3>Attack: Take advantage of insecure methods.</h3>
+<section>
+<pre>
+<img alt="" src="bob.png" class="code-author-pic" />function sendToBob(list) {
+    var stolen;<div class="hilite">    list.set('push', function() {
+        stolen = this;
+    });</div>    list.add('steal');
+    list.set('push', Array.prototype.push);
+    <span class="exploit">stolen.push('unlogged item');</span>
+}
+</pre>
+</section>
+<section class="build">
+<pre><div><img alt="" src="alice.png" class="code-author-pic" />  this.set = function(index, value) {
+    console.log('set', index, value);<div class="red" style="font-weight: bold;">    array[index] = value;</div>  };</div><div class="build"><div>  this.add = function(value) {
+    console.log('add', value);    <div class="red" style="font-weight: bold;">    array.push(value);</div>  };</div></div></pre>
+</section>
+			</article>
+
+           <article>
+           		<h3>Solution: Neutralize arguments from external code.</h3>
+<section>
+<pre>
+<img alt="" src="alice.png" class="code-author-pic" />function LoggedList() {
+  var array = [ ];
+  this.add = function(value) {
+    console.log('add', value);
+    array.push(value);
+  };
+  this.get = function(index) {
+    return array[index];
+  };
+  this.set = function(index, value) {
+    console.log('set', index, value);
+    // `+index` coerces to number
+    <b>array[+index] = value;</b>
+  };
+  Object.freeze(this);
+}
+</pre>
+</section>
+			</article>
+
+			<article>
+				<h3>Attack: Modify built-in prototypes.</h3>
+<section>
+<pre>
+<img alt="" src="bob.png" class="code-author-pic" />function sendToBob(list) {
+    var push = Array.prototype.push;
+    var stolen;<div class="hilite">    Array.prototype.push = function(v) {
+        stolen = this;
+    };</div>    list.add('steal');
+    Array.prototype.push = push;
+    <span class="exploit">stolen.push('unlogged item');</span>
+}
+</pre>
+</section>
+<section class="build">
+<pre>
+<img alt="" src="alice.png" class="code-author-pic" />  this.add = function(value) {
+    console.log('add', value);    <div class="red" style="font-weight: bold;">    array.push(value);</div>  };
+</pre>
+</section>
+           </article>
+
+           <article>
+           		<h3>Solution: Don't trust methods.</h3>
+<section>
+<pre style="margin-top: 16px;">
+<img alt="" src="alice.png" class="code-author-pic" /><b>var push = lazyBind(Array.prototype.push);</b>
+
+function LoggedList() {
+  var array = [ ];
+  this.add = function(value) {
+    console.log('add', value);
+    <b>push(array, value);</b>
+  };
+  this.get = function(index) {
+    return array[index];
+  };
+  this.set = function(index, value) {
+    console.log('set', index, value);
+    array[+index] = value;
+  };
+  Object.freeze(this);
+}
+</pre>
+</section>
+				</article>
+
+				<article>
+					<h3>Attack: Take advantage of built-in behavior.</h3>
+<section>
+<pre>
+<img alt="" src="bob.png" class="code-author-pic" />function sendToBob(list) {
+    var stolen;
+    Object.defineProperty(Object.prototype, '0',
+        { set: function() { stolen = this; } }
+    );
+    list.add('steal');
+    <span class="exploit">stolen.push('unlogged item');</span>
+}
+</pre>
+</section>
+<section class="build">
+<pre>
+<img alt="" src="alice.png" class="code-author-pic" />  this.add = function(value) {
+    console.log('add', value);    <div class="red" style="font-weight: bold;">    push(array, value);</div>  };
+</pre>
+</section>
+           </article>
+
+			<article>
+           		<h3>Solution: Be cautious with built-ins.</h3>
+<section>
+<pre style="margin-top: 16px;">
+<img alt="" src="alice.png" class="code-author-pic" />var create = Object.create,
+	push = lazyBind(Array.prototype.push);
+
+function LoggedList() {
+  <b>var array = create(null);</b>
+  this.add = function(value) {
+    console.log('add', value);
+    push(array, value);
+  };
+  this.get = function(index) {
+    return array[index];
+  };
+  this.set = function(index, value) {
+    console.log('set', index, value);
+    array[+index] = value;
+  };
+  Object.freeze(this);
+}
+</pre>
+</section>
+			</article>
+
+			<!--article>
+				<h3>setTimeout / clearTimeout</h3>
+			</article-->
+
+			<!--article>
+				<h3>laundering functions to get around function.caller leak</h3>
+			</article-->
+
+		<article class="title-slide">
+    		<div style="margin: 170px 0 0 0px;">
+    			<h3 style="margin-bottom: 8px;">High Integrity</h3>
+    			<p style="margin: 0;"><i>How to use and write 3rd party code so that it always works</i></p>
+    			<ul style="margin-top: 12px;">
+		        	<li>Writing general purpose code</li>
+	        		<li>Achieving private variables</li>
+	        		<li>Guarding internal state</li>
+	        	</ul>
+	        </div>
+        </article>
+
+        <article>
+        	<h1>Questions?</h1>
+        	<h3 style="margin-top: 80px;">Nathan Wall<br />nwall@appnexus.com<br />
+        		<a href="http://github.com/Nathan-Wall">github.com/Nathan-Wall</a></h3>
+        </article>
+
+    </section>
+
+  </body>
+</html>

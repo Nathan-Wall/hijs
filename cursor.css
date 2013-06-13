@@ -1,0 +1,9 @@
+.cursor-hilite {
+	position: fixed;
+	background: #f00;
+	width: 40px;
+	height: 40px;
+	border-radius: 1000px;
+	opacity: .6;
+	z-index: 100000;
+}

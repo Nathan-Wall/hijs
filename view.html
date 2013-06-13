@@ -18,6 +18,8 @@
 
     <meta charset='utf-8'>
     <script src='slides.js'></script>
+    <script type="text/javascript" src="cursor.js"></script>
+    <link rel="stylesheet" type="text/css" href="cursor.css" />
 	  
 	  <style type="text/css">
 
@@ -261,11 +263,11 @@
         	<h1 style="margin-top: 120px;">High Integrity JavaScript (HIJS)</h1>
         	<p style="font-size: 140%;">How to use and write 3rd party code so that it always works.</p>
         	<p style="font-size: 140%; text-align: right; margin-top: 70px; line-height: 1.3em;">Nathan Wall<br />
-        		<a href="http://nathan-wall.github.io/hijs/">http://Nathan-Wall.github.io/hijs/</a></p>
+        		<a href="http://nathan-wall.github.io/hijs/">Nathan-Wall.github.io/hijs</a></p>
         </article>
 
         <article>
-        	<h3>A Few Facts About Me</h3>
+        	<h3>A Couple Facts About Me</h3>
         	<ul class="build">
         		<li>I made an unassisted triple play in baseball when<br />I was 8.</li>
         		<li>
@@ -480,6 +482,32 @@ Object.defineProperty(A, 'foo', {
 A.foo = 'bar';
 A.foo; // => 'bar_extra'
 </pre></section>
+        </article>
+
+      	<article>
+      		<h3>defineProperty</h3>
+			<table style="color: #000;">
+				<tr style="background: #afa;">
+					<th>Data Descriptor</th>
+					<th>Accessor Descriptor</th>
+				</tr>
+				<tr>
+					<td>value</td>
+					<td>get</td>
+				</tr>
+				<tr>
+					<td>writable</td>
+					<td>set</td>
+				</tr>
+				<tr style="color: #707070;">
+					<td>enumerable</td>
+					<td>enumerable</td>
+				</tr>
+				<tr style="color: #707070;">
+					<td>configurable</td>
+					<td>configurable</td>
+				</tr>
+			</table>
         </article>
 
         <article>
@@ -879,7 +907,7 @@ Foo.prototype.getBar = function() {
 	        	<h4 style="margin-bottom: 8px; color: #000;">Problems:</h4>
 	        	<ul style="margin-top: 0;">
 	        		<!-- li>?</li -->
-	        		<li>Name collisions</li>
+	        		<li>Naming collisions</li>
 	        		<li>No true encapsulation</li>
 	        	</ul>
 	        </div>
@@ -888,7 +916,7 @@ Foo.prototype.getBar = function() {
         </article>
 
         <article>
-        	<h3>The Module Pattern</h3>
+        	<h3>The Neo-Classical Pattern</h3>
 <section><pre>
 function Foo() {
 	var bar = Math.random();
@@ -944,7 +972,7 @@ BankAccount.prototype.deposit = function(<span class="black">from</span>, amount
 
       		<article>
 
-      			<h3>The Module Pattern</h3>
+      			<h3>The Neo-Classical Pattern</h3>
 <section><pre>
 function BankAccount(balance) {
     this.getBalance = function() {

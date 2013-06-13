@@ -258,15 +258,15 @@
            slides below. -->
         
         <article>
-        	<h1>High Integrity JavaScript (HIJS)</h1>
+        	<h1 style="margin-top: 120px;">High Integrity JavaScript (HIJS)</h1>
         	<p style="font-size: 140%;">How to use and write 3rd party code so that it always works.</p>
-        	<p style="font-size: 140%; text-align: right;">Nathan Wall</p>
+        	<p style="font-size: 140%; text-align: right; margin-top: 70px; line-height: 1.3em;">Nathan Wall<br />
+        		<a href="http://nathan-wall.github.io/hijs/">http://Nathan-Wall.github.io/hijs/</a></p>
         </article>
 
         <article>
         	<h3>A Few Facts About Me</h3>
         	<ul class="build">
-        		<li>I'm part Creek (Native American).</li>
         		<li>I made an unassisted triple play in baseball when<br />I was 8.</li>
         		<li>
         			That same year I started programming in this language:
@@ -533,7 +533,7 @@ foo.forEach(function(item) {
         	<p>Built-in functions can be overridden, so store the existing ones
         	when your script initializes.</p>
 <section><pre>
-(function(Object, String, Date) {
+(function(Object, String, Date, undefined) {
     
     'use strict';
     
@@ -543,6 +543,9 @@ foo.forEach(function(item) {
         getOwnPropertyNames = Object.getOwnPropertyNames;
     
     // ...
+
+<div class="build"><span>    var array = [ ];
+    array<span class="red" style="font-weight: bold;">.push</span>('foo');</span></div>
     
 })(Object, String, Date);
 </pre></section>
@@ -850,6 +853,16 @@ function define(obj, propName, desc) {
 	        </div>
         </article>
 
+      		<article>
+      			<h3>Private in Class Syntax for ES6?</h3>
+<section><pre>
+class Nameable {
+	constructor(private name) { }
+	getName() { return this@name; }
+}
+</pre></section>
+			</article>
+
         <article>
         	<h3>The Underscore Pattern</h3>
 <section><pre>
@@ -1105,9 +1118,25 @@ var Nameable, Renameable;
 	      		</div>
       		</article>
 
-			<article>
-				<h3>Possibilities for ECMAScript 6</h3>
-				<h4 style="margin-bottom: 0;">WeakMaps</h4>
+      		<article>
+      			<h3>Under the Hood: Secrets with WeakMaps</h3>
+<section><pre>
+Secrets.create = function() {
+    var wm = new WeakMap();
+    return function(obj) {
+        var secret = wm.get(obj);
+        if (!secret) {
+            secret = <b class="hilite">createSecret(obj)</b>;
+            wm.set(obj, secret);
+        }
+        return secret;
+    };
+}
+</pre></section>
+      		</article>
+
+			<!--article>
+				<h3>WeakMaps</h3>
 <section><pre>
 let Nameable = (function() {
 	let _name = new WeakMap();
@@ -1120,9 +1149,9 @@ let Nameable = (function() {
 	return Nameable;
 })();
 </pre></section>
-      		</article>
+      		</article-->
 
-			<article>
+			<!--article>
 				<h3>Possibilities for ECMAScript 6</h3>
 				<h4>Private Symbols? (unlikely)</h4>
 <section><pre>
@@ -1154,18 +1183,7 @@ let Nameable = (function() {
 	return Nameable;
 })();
 </pre></section>
-      		</article>
-
-      		<article>
-      			<h3>Possibilities for ECMAScript 6</h3>
-      			<h4>Private in Class Syntax?</h4>
-<section><pre>
-class Nameable {
-	constructor(private name) { }
-	getName() { return this@name; }
-}
-</pre></section>
-			</article>
+      		</article-->
 
       		<article class="title-slide-2">
       			<div style="margin: 190px 0 0 35px; font-size: 120%; line-height: 1.24em;">

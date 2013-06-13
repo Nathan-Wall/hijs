@@ -1,4 +1,4 @@
-if (location.hash == '#cursor' || document.cookie == 'cursor=true') {
+if (location.hash == '#cursor' || ~document.cookie.indexOf('cursor=true')) {
 	document.cookie = 'cursor=true';
 	document.addEventListener('DOMContentLoaded', function() {
 
